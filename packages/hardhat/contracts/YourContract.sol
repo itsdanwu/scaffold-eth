@@ -11,7 +11,7 @@ contract YourContract {
 
   address public dan = 0xf6fbF136c1D6470B891930e35D67F9a9111ED743;
 
-  string public purpose = "Building Unstoppable Apps!!!";
+  string public purpose = "Building stuff for Michelle :-)";
 
   // Mapping from addresses to uint
   mapping(address => uint) public balances;
