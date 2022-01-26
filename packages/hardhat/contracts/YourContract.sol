@@ -19,7 +19,13 @@ contract YourContract {
   constructor() payable {
     // what should we do on deploy?
     //setting balance mapping of Dan address to 100 ether
-    balances[dan] =  100 * 10 **18;
+    balances[dan] =  100;
+  }
+
+  //function to send ether from address to designated address
+  function transfer(address to, uint256 amount) public {
+    balances[msg.sender] -= amount;
+    balances[to] += amount;
   }
 
   function setPurpose(string memory newPurpose) public payable{
