@@ -9,16 +9,24 @@ contract YourContract {
 
   // event SetPurpose(address sender, string purpose);
 
-  string public purpose = "Dan Wu Building Unstoppable Apps!!";
+  address public dan = 0xf6fbF136c1D6470B891930e35D67F9a9111ED743;
+
+  string public purpose = "Building Unstoppable Apps!!!";
+
+  // Mapping from addresses to uint
+  mapping(address => uint) public balances;
 
   constructor() payable {
     // what should we do on deploy?
+    //setting balance mapping of Dan address to 100 ether
+    balances[dan] =  100 * 10 **18;
   }
 
-  address public owner = 0xf6fbF136c1D6470B891930e35D67F9a9111ED743;
-
-  function setPurpose(string memory newPurpose) public payable {
-      require( msg.value == 0.001 ether, "NOT ENOUGH");
+  function setPurpose(string memory newPurpose) public payable{
+      // Require the sender to be the DAN contract address
+      require(msg.sender==dan, "NOT THE OWNER!");
+      // Also require the sender to have 0.001 ether
+      require( msg.value >= 0.001 ether, "NOT ENOUGH ETHER!!");
       purpose = newPurpose;
       console.log(msg.sender,"set purpose to",purpose);
       // emit SetPurpose(msg.sender, purpose);
@@ -27,11 +35,4 @@ contract YourContract {
   // to support receiving ETH by default
   receive() external payable {}
   fallback() external payable {}
-
-function withdraw() public {
-  require( msg.sender == owner, "NOT OWNER");
-  (bool success, ) = owner.call{value: address(this).balance}("");
-  require( success, "FAILED");
-}
-
 }
